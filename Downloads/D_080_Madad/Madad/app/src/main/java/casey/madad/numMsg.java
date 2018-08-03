@@ -1,11 +1,13 @@
-package casey.app20;
+package casey.madad;
 
 public class numMsg {
     String phone ;
     String msg;
+    String time;
 
-    numMsg(String phone , String msg ){
+    numMsg(String phone , String msg , String time ){
      this.phone =   phone;
      this.msg = msg ;
+     this.time=time;
     }
 }

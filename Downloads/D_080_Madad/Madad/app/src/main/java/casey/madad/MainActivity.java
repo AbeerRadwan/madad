@@ -1,25 +1,36 @@
-package casey.app20;
+package casey.madad;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Bundle;
-
+import java.util.Date;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.telephony.SmsManager;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
+import java.text.SimpleDateFormat;
 
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import casey.app20.R;
+
 public class MainActivity extends Activity {
+    Date dNow = new Date( );
+    SimpleDateFormat ft =
+            new SimpleDateFormat ("'at' hh:mm:ss");
+    ArrayList<numMsg> ItemScroll=new ArrayList<numMsg>();
     IntentFilter intentFilter;
 static  int count = 0;
+String delivermsg ;
     private BroadcastReceiver intentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -59,63 +70,83 @@ static  int count = 0;
 
     }
     else{
-        TextView SMSes = (TextView) findViewById(R.id.address);
+
         String choice = (intent.getExtras().getString("sms1"));
         switch (choice) {
 
             case "1":
 
-                SMSes.setText("تسمم غذائي");
+               delivermsg = "تسمم غذائي";
                 break;
             case "2":
 
-                SMSes.setText("صرع");
+                delivermsg ="صرع";
                 break;
 
             case "3":
 
-                SMSes.setText("ضربة شمس");
+                delivermsg ="ضربة شمس";
                 break;
             case "4":
 
-                SMSes.setText("اغماء");
+                delivermsg ="اغماء";
                 break;
             case "5":
 
-                SMSes.setText("اختناق");
+                delivermsg ="اختناق";
                 break;
             case "6":
 
-                SMSes.setText("أزمة قلبية");
+                delivermsg ="أزمة قلبية";
                 break;
             case "7":
 
-                SMSes.setText("جروح/كسور");
+                delivermsg ="جروح/كسور";
                 break;
             case "8":
 
-                SMSes.setText("لا أعلم");
+                delivermsg ="لا أعلم";
                 break;
 
 
         }
 
+
+                ItemScroll.add(new numMsg("Portland ukanda",delivermsg,ft.format(dNow)));
+                LinearLayout line= (LinearLayout) findViewById(R.id.line);
+                View view ;
+               // LayoutInflater inflater=LayoutInflater.from(this);
+                LayoutInflater layoutflater=getLayoutInflater();
+                view=layoutflater.inflate(R.layout.new_item_list,null);
+                TextView taskn=(TextView)view.findViewById(R.id.msgtype);
+                taskn.setText(delivermsg);
+                TextView taskt=(TextView)view.findViewById(R.id.time);
+
+                taskt.setText(ft.format(dNow));
+                line.setPadding(2,2,2,2);
+                line.setTag(ItemScroll.size());
+
+
+
+                line.addView(view);
+
+
     }
 
 
-            if((intent.getExtras().getString("sms1")).equals("555")){
-                Toast.makeText(context,"im in", Toast.LENGTH_SHORT).show();
+          //  if((intent.getExtras().getString("sms1")).equals("555")){
+            //    Toast.makeText(context,"im in", Toast.LENGTH_SHORT).show();
                // Toast.makeText(getBaseContext(), intent.getExtras().getString("sms"), Toast.LENGTH_SHORT).show();
-
+/*
                 sendSMS(intent.getExtras().getString("sms"), "Hala");
-            /*    Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+                Intent i = new Intent(android.content.Intent.ACTION_VIEW);
                 i.putExtra("address", "Recipient Number Here");
                 i.putExtra("sms_body", "Your Message Here");
                 i.setType("vnd.android-dir/mms-sms");
                 startActivity(i);*/
 
 
-            }
+           // }
             count++;
         }
     };
@@ -123,11 +154,53 @@ static  int count = 0;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         sendSMS("6505551212", "مرحباً بك في خدمة مدد : " +
                 "\n1-مٌسعف\n 2-أقرب صيدلية");
 
         intentFilter = new IntentFilter();
         intentFilter.addAction("SMS_RECEIVED_ACTION");
+
+        LinearLayout line= (LinearLayout) findViewById(R.id.line);
+        View view ;
+        for(int i = 0; i< ItemScroll.size(); i++){
+            LayoutInflater layoutflater=getLayoutInflater();
+            view=layoutflater.inflate(R.layout.new_item_list,null);
+            TextView taskn=(TextView)view.findViewById(R.id.msgtype);
+            TextView taskt=(TextView)view.findViewById(R.id.time);
+            taskn.setText(ItemScroll.get(i).msg);
+            taskt.setText(ItemScroll.get(i).time);
+            line.setPadding(2,2,2,2);
+                line.setTag(i);
+            line.addView(view);
+
+        }
+//open detail
+
+    line.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            int id = (int)view.getTag();
+
+
+
+            Intent move=new Intent(MainActivity.this,detailed_msg.class);
+            //  TextView t = (TextView)view.findViewById(R.id.msgtype) ;
+          //  Toast.makeText(getBaseContext(), ItemScroll.get(id-1).msg, Toast.LENGTH_SHORT).show();
+
+            String y = ItemScroll.get(id-1).msg;
+            move.putExtra(y.toString(),"msgType".toString());
+            move.putExtra(ItemScroll.get(id-1).time,"msgTime");
+
+            startActivity(move);
+        }
+    });
+
+
+
+
+
 
 
 
@@ -195,4 +268,27 @@ static  int count = 0;
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // for display item on horizontal scroll
+
+        LinearLayout line= (LinearLayout) findViewById(R.id.line);
+        View view ;
+        LayoutInflater inflater=LayoutInflater.from(this);
+        for(int i = 0; i< ItemScroll.size(); i++){
+            LayoutInflater layoutflater=getLayoutInflater();
+            view=layoutflater.inflate(R.layout.new_item_list,null);
+            TextView taskn=(TextView)view.findViewById(R.id.msgtype);
+            taskn.setText(ItemScroll.get(i).msg);
+
+            line.setPadding(2,2,2,2);
+
+            line.addView(view);
+        }
+
+
+        return true;
+
+    }
+
 }

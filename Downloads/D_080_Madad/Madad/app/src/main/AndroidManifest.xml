@@ -4,15 +4,16 @@
     android:versionCode="1"
     android:versionName="1.0">
 
-
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="casey.madad.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -21,13 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".SMSReceiver">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
 
+        <receiver android:name="casey.madad.SMSReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name="casey.madad.detailed_msg"></activity>
     </application>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+
 </manifest>

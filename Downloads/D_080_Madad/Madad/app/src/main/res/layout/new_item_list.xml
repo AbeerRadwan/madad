@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="69dp"
+                android:layout_marginTop="10dp"
+               >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/passout2"
+                    android:layout_height="82dp"
+                    android:background="@drawable/cardview_bg"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="100dp"
+                        android:background="@color/colorPrimary"></View>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/msgtype"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:text="TextView"
+                            android:textColor="@color/colorGray"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="20dp"
+                            android:gravity="center_vertical">
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/gree_circle"></View>
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="قبول"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/msgtype"
+                            android:layout_marginTop="3dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:text=" 5:40 pm"
+                                android:textColor="@color/colorLightGray"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:layout_marginLeft="7dp"
+                                android:src="@drawable/placeholder" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="2dp"
+                                android:text="4 متر"
+                                android:textColor="@color/colorLightGray"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
